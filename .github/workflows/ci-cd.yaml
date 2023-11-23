@@ -1,34 +1,35 @@
-name: CI/CD Pipeline
+name: GitHub Pages
 
 on:
   push:
     branches:
-      - main  # Pode ser ajustado para a branch que você deseja monitorar
+    - main
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v2
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '18'
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
 
-      - name: Install Dependencies and Build
-        run: |
-          npm install -g @angular/cli
-          npm install
-          ng build --configuration production
+    - name: Install dependencies
+      run: npm install
 
-      - name: Run Tests
-        run: npm test -- --watch=false --browsers=ChromeHeadless
+    - name: Run tests
+      run: npm run test:headless
 
-      - name: Deploy to Hosting Service
-        
-        run: |
-          ng deploy --base-href=/pipelines-demo/
-          # Comandos para implantar no serviço de hospedagem
+    - name: Build
+      run: npm run build:prod
+
+    - name: Deploy
+      if: success()
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: dist/angular-github-actions
+        enable_jekyll: true
