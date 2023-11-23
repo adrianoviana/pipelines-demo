@@ -28,10 +28,7 @@ jobs:
         run: npm test -- --watch=false --browsers=ChromeHeadless
 
       - name: Deploy to Hosting Service
-        # Adapte esse passo para o seu serviço de hospedagem (exemplo: Firebase, AWS, Netlify, etc.)
-        # Aqui está um exemplo para implantar em um serviço de hospedagem hipotético chamado "HostingService"
+        
         run: |
           # Comandos para implantar no serviço de hospedagem
           # Exemplo: hosting-service deploy --project=my-project
-
-# Adicione outras etapas conforme necessário (análise estática de código, notificações, etc.)
