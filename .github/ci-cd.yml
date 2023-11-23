@@ -1,0 +1,35 @@
+# Define o nome do pipeline como "CI/CD Pipeline"
+name: CI/CD Pipeline
+
+# Aciona o pipeline quando ocorre um push no repositório na branch "main"
+on:
+  push:
+    branches:
+      - main  # Pode ser ajustado para a branch que você deseja monitorar
+
+# Define os jobs (tarefas) a serem executados no pipeline
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Define a máquina onde o job será executado como "ubuntu-latest"
+
+    # Lista de etapas (steps) a serem executadas no job
+    steps:
+      - name: Checkout Repository  # Etapa para fazer checkout do repositório
+        uses: actions/checkout@v2  # Usa a ação "checkout@v2" do GitHub Actions
+
+      - name: Setup Node.js  # Etapa para configurar o Node.js
+        uses: actions/setup-node@v2  # Usa a ação "setup-node@v2" do GitHub Actions
+        with:
+          node-version: '14'  # Define a versão do Node.js como '14'
+
+      - name: Install Dependencies and Build  # Etapa para instalar dependências e construir o aplicativo
+        run: |
+          npm install -g @angular/cli  # Instala globalmente o Angular CLI
+          npm install  # Instala as dependências do projeto
+          ng build --prod  # Executa o build do projeto Angular com a flag --prod
+
+      - name: Run Tests  # Etapa para executar os testes
+        run: ng test --watch=false  # Executa os testes unitários com a flag --watch=false
+
+      - name: SUCESSO! Agora é só seguir para publicar  # Etapa para implantar o aplicativo no serviço de hospedagem
+      
