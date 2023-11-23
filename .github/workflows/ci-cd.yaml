@@ -25,7 +25,7 @@ jobs:
           ng build --configuration production
 
       - name: Run Tests
-        run: ng test --watch=false
+        run: npm test
 
       - name: Deploy to Hosting Service
         # Adapte esse passo para o seu serviço de hospedagem (exemplo: Firebase, AWS, Netlify, etc.)
