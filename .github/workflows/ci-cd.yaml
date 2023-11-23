@@ -22,7 +22,7 @@ jobs:
         run: |
           npm install -g @angular/cli
           npm install
-          ng build --prod
+          ng build --configuration production
 
       - name: Run Tests
         run: ng test --watch=false
