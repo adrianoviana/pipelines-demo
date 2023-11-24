@@ -6,7 +6,7 @@ on:
     - main
 
 jobs:
-  deploy:
+  integration:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -26,9 +26,12 @@ jobs:
     - name: Build
       run: npm run build:prod
 
-    - name: Deploy
-      uses: peaceiris/actions-gh-pages@v3
-      if: github.ref == 'refs/heads/main'
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./public
+    - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist # Diretório onde está a build do site
+          user_name: "GitHub Actions" # Nome do usuário que realizará o commit
+          user_email: "actions@users.noreply.github.com" # E-mail do usuário que realizará o commit
+          publish_branch: gh-pages # Branch onde será publicado o site estático
+          force_orphan: true # Força a criação de um novo histórico no branch gh-pages
