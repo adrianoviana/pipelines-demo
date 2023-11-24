@@ -23,10 +23,10 @@ jobs:
     - name: Executando os testes
       run: npm run test:headless
 
-    - name: Build
+    - name: Processo de Build
       run: npm run build:prod
 
-    - name: Deploy
+    - name: Processo de Deploy
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
