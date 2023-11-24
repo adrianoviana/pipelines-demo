@@ -20,7 +20,7 @@ jobs:
     - name: Instalando dependencias
       run: npm install
 
-    - name: Run tests
+    - name: Executando os testes
       run: npm run test:headless
 
     - name: Build
